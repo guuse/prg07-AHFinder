@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GuusMobileAPP</string>
+    <string name="find">Find</string>
+    <string name="title">Albert Heijn Finder</string>
+    <string name="title1">Albert Heijn Found</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_testtt">Map</string>
+</resources>
