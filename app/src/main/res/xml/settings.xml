@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="pref_soundOn"
+        android:summary="Turn the Start Up Music on and off"
+        android:title="Music on " />
+
+</PreferenceScreen>

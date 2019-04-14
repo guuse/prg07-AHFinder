@@ -2,9 +2,11 @@ package com.example.guusmobileapp;
 
 import android.content.Intent;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,13 +20,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    final private double[] latlist = {
-            51.912650
-    };
-    final private double[] longlist = {
-            4.458550
-    };
-
     int titleposition = 0;
     String[] stores =  {
 
@@ -32,6 +27,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public double LocationLat;
     public double LocationLong;
+    public double AhLat;
+    public double AhLong;
+
+    MediaPlayer mediaPlayer;
 
     private GoogleMap mMap;
 
@@ -40,9 +39,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.background);
+
+        if (SettingsActivity.soundCheck(this)) {
+            mediaPlayer.start();
+            mediaPlayer.setLooping(true);
+        } else {
+            mediaPlayer.stop();
+        }
+
         Intent intent = getIntent();
         LocationLat = intent.getDoubleExtra("LocationLat", 0);
         LocationLong = intent.getDoubleExtra("LocationLong", 0);
+        AhLat = intent.getDoubleExtra("AhLat", 0);
+        AhLong = intent.getDoubleExtra("AhLong", 0);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -56,11 +66,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         LatLng current = new LatLng(LocationLat, LocationLong);
-        LatLng AH = new LatLng(latlist[titleposition],longlist[titleposition]);
+        LatLng AH = new LatLng(AhLat,AhLong);
         mMap.setMinZoomPreference(14.5f);
         mMap.setMaxZoomPreference(25.0f);
         mMap.addMarker(new MarkerOptions().position(current).title("Home"));
         mMap.addMarker(new MarkerOptions().position(AH).title("Albert Heijn"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(current));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.background);
+
+        if (SettingsActivity.soundCheck(this)) {
+            mediaPlayer.start();
+            mediaPlayer.setLooping(true);
+        } else {
+            mediaPlayer.stop();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
 }
