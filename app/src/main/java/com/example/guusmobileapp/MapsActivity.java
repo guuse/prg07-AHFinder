@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.location.LocationServices;
@@ -67,6 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng current = new LatLng(LocationLat, LocationLong);
         LatLng AH = new LatLng(AhLat,AhLong);
+        Log.d(FindActivity.LOG_TAG,"test ah : " + AH);
+        Log.d(FindActivity.LOG_TAG,"test curr : " + current);
         mMap.setMinZoomPreference(14.5f);
         mMap.setMaxZoomPreference(25.0f);
         mMap.addMarker(new MarkerOptions().position(current).title("Home"));

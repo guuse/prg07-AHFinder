@@ -110,7 +110,7 @@ public class FindActivity extends AppCompatActivity {
         intent.putExtra("LocationLat", LocationLat);
         intent.putExtra("LocationLong", LocationLong);
         intent.putExtra("AhLong", AhLong);
-        intent.putExtra("AhLong", AhLat);
+        intent.putExtra("AhLat", AhLat);
         startActivity(intent);
     }
 
